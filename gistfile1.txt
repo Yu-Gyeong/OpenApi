@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>API 연습</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>인터파크 API 이용 도서검색</h1>
+    <input id="bookName" value="" type="text">
+    <button id="search">검색</button><p></p>
+    <p1>책제목 : </p1>
+    <p2></p2>
+    <br></br>
+    <p3>책저자 : </p3>
+    <br></br>
+    <p4>출판사 : </p4>
+    <br></br>
+    <p5>책내용 : </p5>
+    <br></br>
+    <script>
+        $(document).ready(function () {
+            $("#search").click(function () {
+
+                $.ajax({
+                    method: "GET",
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    url: "http://book.interpark.com/api/search.api",
+                    data: {
+                        queryType: "all",
+                        maxResults : "100",
+                        sort: "salesPoint",
+                        query: $("#bookName").val(),
+                        key: "DF39B6213A61C55D137259FB6EE821D61D53E85A42745D79C307498660D638A3",
+                        output: "json",
+                        callback: "book"
+                    },
+
+                    success: function book(result) {
+                        console.log(result);
+                        var title = result.item[0].title;
+                        var thumbnail = result.item[0].coverLargeUrl;
+                        var author = result.item[0].author;
+                        var publisher = result.item[0].publisher;
+                        var contents = result.item[0].description;
+
+                        $("#title").append("<strong>" + title + "</strong>");
+                        $("#content").append(contents);
+                        var img = ("<img src='" + thumbnail + "'/>");
+                        $("#book_img").append(img);
+                        $("p1").append("<table width=500><tr><td><strong>" + title + "</strong></td></tr></table>");
+                        $("p2").append("<table width=500><tr><td><img src='" + thumbnail + "'/></td></tr></table>");
+                        $("p3").append("<table width=500><tr><td><strong>" + author + "</strong></td></tr></table>");
+                        $("p4").append("<table width=500><tr><td><strong>" + publisher + "</strong></td></tr></table>");
+                        $("p5").append("<table width=500><tr><td><strong>" + contents + "</strong></td></tr></table>");
+
+                    }
+                })
+
+            });
+        });
+    </script>
+</body>
+</html>
