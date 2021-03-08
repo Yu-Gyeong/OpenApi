@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -8,11 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>API 연습</title>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU" crossorigin="anonymous"></script>
     <h1>인터파크 API 이용 도서검색</h1>
     <input id="bookName" value="" type="text">
     <button id="search">검색</button><p></p>
@@ -26,7 +26,7 @@
     <p5>책내용 : </p5>
     <br></br>
     <script>
-        $(document).ready(function () {
+        $(function () {
             $("#search").click(function () {
 
                 $.ajax({
